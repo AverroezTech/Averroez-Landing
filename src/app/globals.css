@@ -1,0 +1,299 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-mono: var(--font-geist-mono);
+  --color-ring: var(--ring);
+  --color-border: var(--border);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Brand Colors - Averroez Palette (from logo) */
+  --color-navy: var(--navy);
+  --color-navy-dark: var(--navy-dark);
+  --color-blue: var(--blue);
+  --color-blue-light: var(--blue-light);
+  --color-whatsapp: var(--whatsapp);
+}
+
+:root {
+  --radius: 0.625rem;
+
+  /* Brand Colors - Derived from Averroez Logo */
+  --navy: #0a2540;
+  --navy-dark: #051c2c;
+  --blue: #0891b2;
+  --blue-light: #22d3ee;
+  --whatsapp: #25d366;
+
+  /* Main backgrounds - Light Mode (like AQCM) */
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+
+  /* Cards and elevated surfaces */
+  --card: #ffffff;
+  --card-foreground: #1a1a1a;
+
+  /* Primary - Logo Blue */
+  --primary: #0891b2;
+  --primary-foreground: #ffffff;
+
+  /* Secondary - Navy (from logo text) */
+  --secondary: #0a2540;
+  --secondary-foreground: #ffffff;
+
+  /* Muted elements */
+  --muted: #f9fafb;
+  --muted-foreground: #6b7280;
+
+  /* Accent - Light Blue */
+  --accent: #22d3ee;
+  --accent-foreground: #0a2540;
+
+  /* Borders and inputs */
+  --border: #e5e7eb;
+  --input: #e5e7eb;
+  --ring: #0891b2;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  body {
+    @apply bg-background text-foreground overscroll-none;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 5px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) transparent;
+  }
+
+  main {
+    @apply flex-1;
+  }
+
+  /* Layout container */
+  .layout {
+    @apply mx-auto w-[95%] max-w-7xl;
+  }
+
+  /* Shadows - AQCM Style */
+  .shadow-elegant {
+    box-shadow: 0 4px 20px -8px rgba(10, 37, 64, 0.12);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 20px rgba(8, 145, 178, 0.3);
+  }
+
+  .glow-primary-lg {
+    box-shadow: 0 0 40px rgba(8, 145, 178, 0.2);
+  }
+
+  /* Decorative patterns */
+  .pattern-dots {
+    background-image: radial-gradient(circle, rgba(10, 37, 64, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .pattern-grid {
+    background-image:
+      linear-gradient(rgba(10, 37, 64, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(10, 37, 64, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Glass morphism - AQCM Style */
+  .glass {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(10, 37, 64, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(10, 37, 64, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(8, 145, 178, 0.2);
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Landing Page Animations - AQCM Style */
+@keyframes blob {
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Accessibility: Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite;
+}
+
+@keyframes pulse-glow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(8, 145, 178, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(8, 145, 178, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Section headers gradient underline */
+.gradient-underline {
+  position: relative;
+}
+
+.gradient-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 2px;
+}

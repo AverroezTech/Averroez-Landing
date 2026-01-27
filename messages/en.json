@@ -1,0 +1,72 @@
+{
+    "nav": {
+        "services": "Services",
+        "about": "About",
+        "process": "Process",
+        "contact": "Contact",
+        "letsTalk": "Let's Talk"
+    },
+    "hero": {
+        "badge": "Premium Digital Agency",
+        "headline": "Where First Impressions Become",
+        "headlineAccent": "Lasting Results",
+        "description": "We craft exceptional landing pages and digital experiences that captivate audiences and drive meaningful conversions.",
+        "ctaStart": "Start Your Project",
+        "ctaExplore": "Explore Services",
+        "scroll": "Scroll"
+    },
+    "stats": {
+        "clients": "Clients Served",
+        "projects": "Projects Delivered",
+        "satisfaction": "Client Satisfaction",
+        "experience": "Years Experience"
+    },
+    "services": {
+        "title": "What We Build",
+        "subtitle": "Comprehensive digital solutions tailored to elevate your brand.",
+        "specialty": "Our Specialty",
+        "landingPages": "Landing Pages",
+        "landingPagesDesc": "High-converting landing pages designed to captivate visitors and drive measurable results.",
+        "digitalSolutions": "Digital Solutions",
+        "digitalSolutionsDesc": "End-to-end digital transformation tailored to your business needs.",
+        "seo": "SEO Optimization",
+        "seoDesc": "Strategic search engine optimization that puts your brand in front of the right audience.",
+        "consultations": "Consultations",
+        "consultationsDesc": "Expert guidance to navigate your digital journey. Strategic insights backed by industry expertise.",
+        "inHouse": "In-House Systems",
+        "inHouseDesc": "Custom internal systems designed to streamline operations and boost your team's productivity."
+    },
+    "about": {
+        "title": "Why Choose Averroez?",
+        "bespoke": "Bespoke Solutions",
+        "bespokeDesc": "Every project is unique. We craft custom solutions that reflect your brand.",
+        "quality": "Premium Quality",
+        "qualityDesc": "Exceptional craftsmanship with attention to every pixel.",
+        "results": "Results-Driven",
+        "resultsDesc": "Beautiful design meets strategic thinking. We build to convert.",
+        "cta": "Discuss Your Project"
+    },
+    "process": {
+        "title": "Our Process",
+        "subtitle": "A streamlined approach designed to deliver exceptional results.",
+        "discovery": "Discovery",
+        "discoveryDesc": "We dive deep into understanding your vision and goals.",
+        "strategy": "Strategy",
+        "strategyDesc": "Crafting a tailored approach for your business.",
+        "design": "Design & Build",
+        "designDesc": "Bringing your vision to life with attention to detail.",
+        "launch": "Launch & Optimize",
+        "launchDesc": "Going live and continuously refining."
+    },
+    "cta": {
+        "title": "Ready to Elevate Your Digital Presence?",
+        "description": "Let's discuss how we can transform your vision into a stunning digital reality. No obligations—just a conversation about possibilities.",
+        "messageUs": "Message Us",
+        "followUs": "Follow Us",
+        "response": "We typically respond within hours"
+    },
+    "footer": {
+        "tagline": "Tech Agency & Consultancy",
+        "rights": "All rights reserved."
+    }
+}
