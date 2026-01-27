@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: "Averroez | Tech Agency & Consultancy",
   description: "Premium landing pages and digital solutions. We craft exceptional digital experiences that captivate audiences and drive conversions for ambitious brands.",
   keywords: ["landing pages", "digital agency", "web development", "SEO", "consultancy", "tech agency"],
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "Averroez | Tech Agency & Consultancy",
     description: "Premium landing pages and digital solutions for ambitious brands.",
