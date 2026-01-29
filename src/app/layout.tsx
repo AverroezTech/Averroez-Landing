@@ -3,6 +3,7 @@ import { IBM_Plex_Sans_Arabic } from "next/font/google";
 import { LazyMotion, domAnimation } from "motion/react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, getLocale } from "next-intl/server";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const primaryFont = IBM_Plex_Sans_Arabic({
@@ -99,6 +100,7 @@ export default async function RootLayout({
             {children}
           </LazyMotion>
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   );
