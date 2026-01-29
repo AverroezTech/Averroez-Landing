@@ -1,0 +1,8 @@
+# Robots.txt for Averroez
+# https://averroez.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://averroez.com/sitemap.xml

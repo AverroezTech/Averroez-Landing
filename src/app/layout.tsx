@@ -13,6 +13,7 @@ const primaryFont = IBM_Plex_Sans_Arabic({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://averroez.com"),
   title: "Averroez | Tech Agency & Consultancy",
   description: "Premium landing pages and digital solutions. We craft exceptional digital experiences that captivate audiences and drive conversions for ambitious brands.",
   keywords: ["landing pages", "digital agency", "web development", "SEO", "consultancy", "tech agency"],
@@ -24,6 +25,34 @@ export const metadata: Metadata = {
     title: "Averroez | Tech Agency & Consultancy",
     description: "Premium landing pages and digital solutions for ambitious brands.",
     type: "website",
+    url: "https://averroez.com",
+    siteName: "Averroez",
+    locale: "en_US",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Averroez - Tech Agency & Consultancy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Averroez | Tech Agency & Consultancy",
+    description: "Premium landing pages and digital solutions for ambitious brands.",
+    images: ["/logo.png"],
+  },
+  alternates: {
+    canonical: "https://averroez.com",
+    languages: {
+      "en": "https://averroez.com",
+      "ar": "https://averroez.com/ar",
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
