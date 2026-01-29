@@ -67,6 +67,32 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} dir={direction}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Averroez",
+              "url": "https://averroez.com",
+              "logo": "https://averroez.com/logo.png",
+              "description": "Premium landing pages and digital solutions. We craft exceptional digital experiences that captivate audiences and drive conversions for ambitious brands.",
+              "sameAs": [],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "availableLanguage": ["English", "Arabic"]
+              },
+              "service": {
+                "@type": "Service",
+                "name": "Web Development & Digital Solutions",
+                "description": "Premium landing pages, SEO optimization, and digital consultancy services"
+              }
+            })
+          }}
+        />
+      </head>
       <body className={`${primaryFont.className} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           <LazyMotion features={domAnimation}>
