@@ -47,8 +47,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://averroez.com",
     languages: {
-      "en": "https://averroez.com",
-      "ar": "https://averroez.com/ar",
+      "x-default": "https://averroez.com",
+      "en-US": "https://averroez.com",
+      "ar-SA": "https://averroez.com/ar",
     },
   },
   robots: {
