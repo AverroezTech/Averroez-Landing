@@ -60,10 +60,24 @@
     },
     "cta": {
         "title": "Ready to Elevate Your Digital Presence?",
-        "description": "Let's discuss how we can transform your vision into a stunning digital reality. No obligations—just a conversation about possibilities.",
+        "description": "Let's discuss how we can transform your vision into a stunning digital reality. Fill out the form and we'll get back to you shortly.",
         "messageUs": "Message Us",
         "followUs": "Follow Us",
         "response": "We typically respond within hours"
+    },
+    "form": {
+        "name": "Your Name",
+        "namePlaceholder": "Enter your name",
+        "email": "Email Address",
+        "emailPlaceholder": "Enter your email",
+        "phone": "Phone Number (Optional)",
+        "phonePlaceholder": "Enter your phone number",
+        "message": "Your Message",
+        "messagePlaceholder": "How can we help you?",
+        "submit": "Send Message",
+        "sending": "Sending...",
+        "success": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+        "errorGeneric": "Something went wrong. Please try again or contact us directly."
     },
     "footer": {
         "tagline": "Tech Agency & Consultancy",

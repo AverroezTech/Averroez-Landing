@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { ArrowRight, Sparkles, Monitor, Search, MessageSquare, Settings, Smartphone, Instagram, Menu, X } from "lucide-react";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useTranslations, useLocale } from "next-intl";
 import AnimatedCounter from "@/components/animated-counter";
 import LanguageSwitcher from "@/components/language-switcher";
+import ContactForm from "@/components/contact-form";
 
 // Animation variants - AQCM Style
 const fadeInUp = {
@@ -60,6 +61,16 @@ const serviceIcons = [Monitor, Smartphone, Search, MessageSquare, Settings];
 export default function Home() {
   const t = useTranslations();
   const locale = useLocale();
+  const [scrolled, setScrolled] = useState(false);
+
+  // Track scroll position for header styling
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Stats data
@@ -77,7 +88,7 @@ export default function Home() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className="fixed start-0 end-0 top-0 z-50 border-b bg-white/95 backdrop-blur-md"
+        className={`fixed start-0 end-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/95 backdrop-blur-md border-b shadow-sm" : "bg-transparent"}`}
       >
         <nav className="layout flex items-center justify-between py-4">
           <Link href="/" className="flex items-center gap-3">
@@ -88,23 +99,23 @@ export default function Home() {
               height={45}
               className="rounded-lg"
             />
-            <span className="text-xl font-bold text-secondary hidden sm:block">Averroez</span>
+            <span className={`text-xl font-bold hidden sm:block transition-colors duration-300 ${scrolled ? "text-secondary" : "text-white"}`}>Averroez</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="#services" className="text-secondary/80 hover:text-secondary transition-colors font-medium">{t("nav.services")}</Link>
-            <Link href="#about" className="text-secondary/80 hover:text-secondary transition-colors font-medium">{t("nav.about")}</Link>
-            <Link href="#process" className="text-secondary/80 hover:text-secondary transition-colors font-medium">{t("nav.process")}</Link>
-            <Link href="#contact" className="text-secondary/80 hover:text-secondary transition-colors font-medium">{t("nav.contact")}</Link>
+            <Link href="#services" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.services")}</Link>
+            <Link href="#about" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.about")}</Link>
+            <Link href="#process" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.process")}</Link>
+            <Link href="#contact" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.contact")}</Link>
           </div>
 
           <div className="flex items-center gap-2">
-            <LanguageSwitcher currentLocale={locale} />
+            <LanguageSwitcher currentLocale={locale} scrolled={scrolled} />
             <a
               href="https://www.instagram.com/averroeztech/"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex h-10 px-3 items-center justify-center border border-secondary/20 text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
+              className={`hidden sm:flex h-10 w-10 items-center justify-center border transition-all duration-300 ${scrolled ? "border-secondary/20 text-secondary hover:bg-secondary hover:text-white" : "border-white/30 text-white hover:bg-white/10"}`}
               aria-label="Instagram"
             >
               <Instagram className="h-5 w-5" />
@@ -113,7 +124,7 @@ export default function Home() {
               href="https://wa.me/962796595732"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex group h-10 items-center gap-2 border-2 border-secondary bg-secondary px-5 text-white font-semibold transition-all duration-300 hover:bg-white hover:text-secondary"
+              className={`hidden sm:flex group h-10 items-center gap-2 border-2 px-5 font-semibold transition-all duration-300 ${scrolled ? "border-secondary bg-secondary text-white hover:bg-white hover:text-secondary" : "border-white bg-white/10 text-white hover:bg-white hover:text-secondary"}`}
             >
               <span>{t("nav.letsTalk")}</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -121,7 +132,7 @@ export default function Home() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden h-10 w-10 flex items-center justify-center border border-secondary/20 text-secondary hover:bg-secondary hover:text-white transition-all duration-300"
+              className={`lg:hidden h-10 w-10 flex items-center justify-center border transition-all duration-300 ${scrolled ? "border-secondary/20 text-secondary hover:bg-secondary hover:text-white" : "border-white/30 text-white hover:bg-white/10"}`}
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -193,17 +204,27 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      {/* Hero Section - With uploaded image background */}
+      {/* Hero Section - With video background */}
       <section className="relative min-h-screen overflow-hidden">
-        {/* Background with user's image */}
+        {/* Background video */}
         <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero-bg.png"
-            alt="Digital Technology Background"
-            fill
-            className="object-cover"
-            priority
-          />
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/hero-video.mp4" type="video/mp4" />
+            {/* Fallback image for browsers that don't support video */}
+            <Image
+              src="/hero-bg.png"
+              alt="Digital Technology Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </video>
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/60" />
           <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent" />
@@ -509,59 +530,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section with Contact Form */}
       <section id="contact" className="relative overflow-hidden bg-secondary py-20 md:py-28">
         {/* Decorative blobs */}
         <div className="absolute top-0 end-0 w-72 h-72 bg-primary/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 start-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
 
         <div className="layout relative z-10">
-          <m.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <m.h2
-              variants={textReveal}
-              className="mb-6 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl"
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Left side - Text content */}
+            <m.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="text-center lg:text-start"
             >
-              {t("cta.title")}
-            </m.h2>
-            <m.p
-              variants={textReveal}
-              className="mb-10 text-lg text-white/80"
-            >
-              {t("cta.description")}
-            </m.p>
-            <m.div variants={textReveal} className="flex flex-wrap items-center justify-center gap-4">
-              <a
-                href="https://wa.me/962796595732"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 bg-accent px-10 py-5 text-secondary text-lg font-semibold transition-all duration-300 hover:bg-accent/90 hover:shadow-xl hover:shadow-accent/30"
+              <m.h2
+                variants={textReveal}
+                className="mb-6 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl"
               >
-                <WhatsAppIcon className="h-6 w-6" />
-                <span>{t("cta.messageUs")}</span>
-              </a>
-              <a
-                href="https://www.instagram.com/averroeztech/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 border-2 border-white px-10 py-5 text-white text-lg font-semibold transition-all duration-300 hover:bg-white hover:text-secondary"
+                {t("cta.title")}
+              </m.h2>
+              <m.p
+                variants={textReveal}
+                className="mb-8 text-lg text-white/80"
               >
-                <Instagram className="h-6 w-6" />
-                <span>{t("cta.followUs")}</span>
-              </a>
+                {t("cta.description")}
+              </m.p>
+
+              {/* Social links */}
+              <m.div variants={textReveal} className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-6">
+                <a
+                  href="https://wa.me/962796595732"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 border-2 border-white/30 px-6 py-3 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/50"
+                >
+                  <WhatsAppIcon className="h-5 w-5" />
+                  <span>{t("cta.messageUs")}</span>
+                </a>
+                <a
+                  href="https://www.instagram.com/averroeztech/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 border-2 border-white/30 px-6 py-3 text-white font-medium transition-all duration-300 hover:bg-white/10 hover:border-white/50"
+                >
+                  <Instagram className="h-5 w-5" />
+                  <span>{t("cta.followUs")}</span>
+                </a>
+              </m.div>
+
+              <m.p
+                variants={textReveal}
+                className="text-white/60 text-sm"
+              >
+                +962 796 595 732 · {t("cta.response")}
+              </m.p>
             </m.div>
-            <m.p
-              variants={textReveal}
-              className="mt-6 text-white/60 text-sm"
-            >
-              +962 796 595 732 · {t("cta.response")}
-            </m.p>
-          </m.div>
+
+            {/* Right side - Contact Form */}
+            <ContactForm />
+          </div>
         </div>
       </section>
 
