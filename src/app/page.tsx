@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
 import { ArrowRight, Sparkles, Monitor, Search, MessageSquare, Settings, Smartphone, Instagram, Menu, X } from "lucide-react";
@@ -73,6 +73,37 @@ export default function Home() {
   }, []);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Video smooth loop - fade near end to mask the reset
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let animationId: number;
+    const fadeTime = 0.25; // shorter fade
+
+    const updateOpacity = () => {
+      if (video.duration && !isNaN(video.duration)) {
+        const timeLeft = video.duration - video.currentTime;
+        let opacity = 1;
+
+        if (timeLeft < fadeTime) {
+          opacity = Math.max(0, timeLeft / fadeTime);
+        } else if (video.currentTime < fadeTime) {
+          opacity = Math.min(1, video.currentTime / fadeTime);
+        }
+
+        // Direct DOM update for performance
+        video.style.opacity = String(opacity);
+      }
+      animationId = requestAnimationFrame(updateOpacity);
+    };
+
+    animationId = requestAnimationFrame(updateOpacity);
+    return () => cancelAnimationFrame(animationId);
+  }, []);
+
   // Stats data
   const stats = [
     { value: 100, suffix: "+", labelKey: "stats.clients" },
@@ -99,14 +130,14 @@ export default function Home() {
               height={45}
               className="rounded-lg"
             />
-            <span className={`text-xl font-bold hidden sm:block transition-colors duration-300 ${scrolled ? "text-secondary" : "text-white"}`}>Averroez</span>
+            <span className="text-xl font-bold hidden sm:block transition-colors duration-300 text-secondary">Averroez</span>
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            <Link href="#services" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.services")}</Link>
-            <Link href="#about" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.about")}</Link>
-            <Link href="#process" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.process")}</Link>
-            <Link href="#contact" className={`transition-colors font-medium ${scrolled ? "text-secondary/80 hover:text-secondary" : "text-white/90 hover:text-white"}`}>{t("nav.contact")}</Link>
+            <Link href="#services" className="transition-colors font-medium text-secondary/80 hover:text-secondary">{t("nav.services")}</Link>
+            <Link href="#about" className="transition-colors font-medium text-secondary/80 hover:text-secondary">{t("nav.about")}</Link>
+            <Link href="#process" className="transition-colors font-medium text-secondary/80 hover:text-secondary">{t("nav.process")}</Link>
+            <Link href="#contact" className="transition-colors font-medium text-secondary/80 hover:text-secondary">{t("nav.contact")}</Link>
           </div>
 
           <div className="flex items-center gap-2">
@@ -115,7 +146,7 @@ export default function Home() {
               href="https://www.instagram.com/averroeztech/"
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden sm:flex h-10 w-10 items-center justify-center border transition-all duration-300 ${scrolled ? "border-secondary/20 text-secondary hover:bg-secondary hover:text-white" : "border-white/30 text-white hover:bg-white/10"}`}
+              className="hidden sm:flex h-10 w-10 items-center justify-center border transition-all duration-300 border-secondary/20 text-secondary hover:bg-secondary hover:text-white"
               aria-label="Instagram"
             >
               <Instagram className="h-5 w-5" />
@@ -124,7 +155,7 @@ export default function Home() {
               href="https://wa.me/962796595732"
               target="_blank"
               rel="noopener noreferrer"
-              className={`hidden sm:flex group h-10 items-center gap-2 border-2 px-5 font-semibold transition-all duration-300 ${scrolled ? "border-secondary bg-secondary text-white hover:bg-white hover:text-secondary" : "border-white bg-white/10 text-white hover:bg-white hover:text-secondary"}`}
+              className="hidden sm:flex group h-10 items-center gap-2 border-2 px-5 font-semibold transition-all duration-300 border-secondary bg-secondary text-white hover:bg-white hover:text-secondary"
             >
               <span>{t("nav.letsTalk")}</span>
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -132,7 +163,7 @@ export default function Home() {
             {/* Mobile menu button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className={`lg:hidden h-10 w-10 flex items-center justify-center border transition-all duration-300 ${scrolled ? "border-secondary/20 text-secondary hover:bg-secondary hover:text-white" : "border-white/30 text-white hover:bg-white/10"}`}
+              className="lg:hidden h-10 w-10 flex items-center justify-center border transition-all duration-300 border-secondary/20 text-secondary hover:bg-secondary hover:text-white"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -209,13 +240,14 @@ export default function Home() {
         {/* Background video */}
         <div className="absolute inset-0 z-0">
           <video
+            ref={videoRef}
             autoPlay
             loop
             muted
             playsInline
             className="absolute inset-0 w-full h-full object-cover"
           >
-            <source src="/hero-video.mp4" type="video/mp4" />
+            <source src="/Averroez_Landing.mp4" type="video/mp4" />
             {/* Fallback image for browsers that don't support video */}
             <Image
               src="/hero-bg.png"
@@ -225,9 +257,6 @@ export default function Home() {
               priority
             />
           </video>
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/60" />
-          <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent" />
         </div>
 
         {/* Content */}
@@ -241,25 +270,25 @@ export default function Home() {
             {/* Badge */}
             <m.div
               variants={fadeInUp}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-white/30 bg-white/10 backdrop-blur-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 mb-8 border border-secondary/30 bg-white/80 backdrop-blur-sm"
             >
-              <Sparkles className="h-4 w-4 text-accent" />
-              <span className="text-white/90 text-sm font-medium">{t("hero.badge")}</span>
+              <Sparkles className="h-4 w-4 text-primary" />
+              <span className="text-secondary text-sm font-medium">{t("hero.badge")}</span>
             </m.div>
 
             {/* Main headline */}
             <m.h1
               variants={fadeInUp}
-              className="mb-6 text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
+              className="mb-6 text-4xl font-bold leading-tight tracking-tight text-secondary sm:text-5xl md:text-6xl lg:text-7xl"
             >
               {t("hero.headline")}{" "}
-              <span className="text-accent">{t("hero.headlineAccent")}</span>
+              <span className="text-primary">{t("hero.headlineAccent")}</span>
             </m.h1>
 
             {/* Description */}
             <m.p
               variants={fadeInUp}
-              className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-white/80 md:text-xl"
+              className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-secondary/80 md:text-xl"
             >
               {t("hero.description")}
             </m.p>
@@ -277,7 +306,7 @@ export default function Home() {
               </a>
               <Link
                 href="#services"
-                className="group flex items-center gap-2 border-2 border-white px-8 py-4 text-white font-semibold transition-all duration-300 hover:bg-white hover:text-secondary"
+                className="group flex items-center gap-2 border-2 border-secondary px-8 py-4 text-secondary font-semibold transition-all duration-300 hover:bg-secondary hover:text-white"
               >
                 <span>{t("hero.ctaExplore")}</span>
                 <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -288,7 +317,7 @@ export default function Home() {
             <m.div variants={fadeInUp} className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-3xl md:text-4xl font-bold text-accent mb-1">
+                  <div className="text-3xl md:text-4xl font-bold text-primary mb-1">
                     <AnimatedCounter
                       end={stat.value}
                       suffix={stat.suffix}
@@ -296,7 +325,7 @@ export default function Home() {
                       delay={index * 150}
                     />
                   </div>
-                  <p className="text-white/90 text-sm font-medium">{t(stat.labelKey)}</p>
+                  <p className="text-secondary/80 text-sm font-medium">{t(stat.labelKey)}</p>
                 </div>
               ))}
             </m.div>
@@ -310,9 +339,9 @@ export default function Home() {
           transition={{ delay: 1.5, duration: 0.6 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
-          <div className="flex flex-col items-center gap-2 text-white/60">
+          <div className="flex flex-col items-center gap-2 text-secondary/60">
             <span className="text-xs tracking-widest uppercase">{t("hero.scroll")}</span>
-            <div className="w-px h-12 bg-gradient-to-b from-white/60 to-transparent" />
+            <div className="w-px h-12 bg-gradient-to-b from-secondary/60 to-transparent" />
           </div>
         </m.div>
       </section>
@@ -519,7 +548,7 @@ export default function Home() {
                   <div className="hidden lg:block absolute top-12 start-full w-full h-px bg-gradient-to-r from-primary/50 to-transparent -z-10" />
                 )}
 
-                <div className="border border-border p-8 text-center transition-all duration-300 hover:border-primary hover:shadow-lg">
+                <div className="border border-border p-8 text-center transition-all duration-300 hover:border-primary hover:shadow-lg h-full flex flex-col justify-start">
                   <div className="text-5xl font-bold text-primary/20 mb-4">{String(index + 1).padStart(2, '0')}</div>
                   <h3 className="text-xl font-bold mb-3 text-secondary">{t(`process.${step}`)}</h3>
                   <p className="text-muted-foreground text-sm">{t(`process.${step}Desc`)}</p>

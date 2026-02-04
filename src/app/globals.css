@@ -140,9 +140,23 @@
 
   .pattern-grid {
     background-image:
-      linear-gradient(rgba(10, 37, 64, 0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(10, 37, 64, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
+      linear-gradient(rgba(100, 116, 139, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 116, 139, 0.12) 1px, transparent 1px);
+    background-size: 15px 15px;
+  }
+
+  .pattern-grid-dark {
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.15) 1px, transparent 1px);
+    background-size: 15px 15px;
+  }
+
+  .pattern-grid-hero {
+    background-image:
+      linear-gradient(rgba(100, 116, 139, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 116, 139, 0.3) 1px, transparent 1px);
+    background-size: 25px 25px;
   }
 
   /* Glass morphism - AQCM Style */
